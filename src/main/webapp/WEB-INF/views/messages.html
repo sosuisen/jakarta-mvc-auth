@@ -12,7 +12,7 @@
 		[<a th:href="@{/app/logout}">Logout</a>]
 	</nav>
 	<div id="main">
-		<p th:text="|Hello, ${userName}!|"></p>
+		<p th:text="${'Hello, ' + userName + (isAdmin ? '<ADMIN>' : '') + '!'}"></p>
 		<form th:action="@{/app/messages}" method="POST" class="form-vertical">
 			<div class="form-group">
 				<label for="message">Message:</label>

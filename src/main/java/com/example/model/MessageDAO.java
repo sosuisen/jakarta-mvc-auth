@@ -11,19 +11,19 @@ import jakarta.annotation.Resource;
 import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
-public class MessagesDAO {
+public class MessageDAO {
 	@Resource
 	private DataSource ds;
 
-	public ArrayList<MessageDTO> getAll() throws SQLException {
-		var messagesModel = new ArrayList<MessageDTO>();
+	public ArrayList<Message> getAll() throws SQLException {
+		var messagesModel = new ArrayList<Message>();
 		try (
 				Connection conn = ds.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM messages");
 			) {
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
-				messagesModel.add(new MessageDTO(
+				messagesModel.add(new Message(
 						rs.getInt("id"),
 						rs.getString("name"),
 						rs.getString("message")));
@@ -32,14 +32,14 @@ public class MessagesDAO {
 		return messagesModel;
 	}
 
-	public void create(MessageDTO mesDTO) throws SQLException {
+	public void create(String name, String message) throws SQLException {
 		try (
 				Connection conn = ds.getConnection();
 				PreparedStatement pstmt = conn
 						.prepareStatement("INSERT INTO messages(name, message) VALUES(?, ?)");
 			) {
-			pstmt.setString(1, mesDTO.getName());
-			pstmt.setString(2, mesDTO.getMessage());
+			pstmt.setString(1, name);
+			pstmt.setString(2, message);
 			pstmt.executeUpdate();
 		}
 	}

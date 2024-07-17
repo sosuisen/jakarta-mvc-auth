@@ -56,14 +56,14 @@ public class DatabaseSetup {
 
 		// Initial password is "foo", which must be changed after first login
 		update(ds,
-				"INSERT INTO users VALUES('user', '" + passwordHash.generate("foo".toCharArray()) + "')");
+				"INSERT INTO users VALUES('myuser', '" + passwordHash.generate("foo".toCharArray()) + "')");
 		update(ds,
-				"INSERT INTO users VALUES('admin', '" + passwordHash.generate("foo".toCharArray()) + "')");
+				"INSERT INTO users VALUES('myadmin', '" + passwordHash.generate("foo".toCharArray()) + "')");
 
-		update(ds, "INSERT INTO user_roles VALUES('admin', 'ADMIN')");
-		update(ds, "INSERT INTO user_roles VALUES('admin', 'USER')");
+		update(ds, "INSERT INTO user_roles VALUES('myadmin', 'ADMIN')");
+		update(ds, "INSERT INTO user_roles VALUES('myadmin', 'USER')");
 
-		update(ds, "INSERT INTO user_roles VALUES('user', 'USER')");
+		update(ds, "INSERT INTO user_roles VALUES('myuser', 'USER')");
 
 		try {
 			System.out.println("### current datasource: " + ds.getConnection().getMetaData().getURL());

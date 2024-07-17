@@ -1,8 +1,7 @@
 package com.example.controller;
 
 import java.sql.SQLException;
-import com.example.model.MessageDTO;
-import com.example.model.MessagesDAO;
+import com.example.model.MessageDAO;
 
 import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
@@ -12,7 +11,7 @@ import jakarta.mvc.Controller;
 import jakarta.mvc.Models;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.ws.rs.BeanParam;
+import jakarta.ws.rs.FormParam;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -26,7 +25,7 @@ public class MessageController {
 	@Inject
 	private Models models;
 	@Inject
-	private MessagesDAO messagesDAO;
+	private MessageDAO messagesDAO;
 	@Inject
 	private HttpServletRequest req;
 
@@ -68,9 +67,8 @@ public class MessageController {
 	@POST
 	@RolesAllowed("USER")	
 	@Path("messages")
-	public String postMessages(@BeanParam MessageDTO mes) throws SQLException {
-		mes.setName(req.getRemoteUser());
-		messagesDAO.create(mes);
+	public String postMessages(@FormParam("message") String mes) throws SQLException {
+		messagesDAO.create(req.getRemoteUser(), mes);
 		return "redirect:messages";
 	}
 
