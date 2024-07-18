@@ -27,8 +27,8 @@
 		</form>
 		<hr>
 		<h1>Message List</h1>
-		<div id="message-list" th:each="mes : ${messages}">
-			<p th:text="|${mes.name}: ${mes.message}|"></p>
+		<div id="message-list">
+			<p th:each="mes : ${messages}" th:text="|${mes.name}: ${mes.message}|"></p>
 		</div>
 	</div>
 </body>
