@@ -1,7 +1,7 @@
 # Jakarta MVC Tutorial for Beginners (3)
 
 This is the third part of the Jakarta MVC Tutorial for Beginners.
-In this part, we will create a message board with authorization with Jakarta MVC.
+In this part, we will create a message board with authorization using Jakarta MVC.
 
 This app will have the following features:
 
