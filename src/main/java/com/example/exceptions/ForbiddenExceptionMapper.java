@@ -24,15 +24,16 @@ public class ForbiddenExceptionMapper implements ExceptionMapper<ForbiddenExcept
 			e.printStackTrace();
 		}
 
-		// Use Response.seeOther() to redirect and display the login screen.
-		if(req.getMethod().equals("GET")){
-			// Redirecting to the forbidden request URL is always interrupted by the login screen.
+		// Show the login screen.
+		if (req.getMethod().equals("GET")) {
+			// Use Response.seeOther() to redirect GET request.
+			// GET request to the forbidden URL is always interrupted by the login screen,
+			// because the user is not logged in.
 			return Response.seeOther(URI.create(req.getRequestURL().toString() + "?error=forbidden")).build();
-		}
-		else {
-			// Since redirects cannot be made for any requests other than GET,
-			// The redirect destination will be forcibly set to the main screen.
-			return Response.seeOther(URI.create(req.getContextPath() + "/app/messages?error=forbidden")).build();			
+		} else {
+			// POST request to the forbidden URL is not interrupted by the login screen.
+			// So, redirect to the main screen instead.
+			return Response.seeOther(URI.create(req.getContextPath() + "/app/messages?error=forbidden")).build();
 		}
 	}
 }

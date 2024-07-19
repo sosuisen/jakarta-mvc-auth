@@ -71,12 +71,6 @@ label {
     margin-bottom: 5px;
 }
 
-
-label {
-    font-size: 1.2em;
-    align-self: center;
-}
-
 input[type="text"],
 input[type="password"] {
     padding: 10px;
