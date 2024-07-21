@@ -7,6 +7,7 @@ This app will have the following features:
 
 Newly added features:
 - Authorization
+- Error Handling 
 - CSRF protection
 
 Previous features:
