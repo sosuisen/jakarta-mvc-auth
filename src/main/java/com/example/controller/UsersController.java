@@ -3,6 +3,7 @@ package com.example.controller;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.mvc.Controller;
+import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 
 @Controller
@@ -11,7 +12,7 @@ import jakarta.ws.rs.Path;
 @Path("users")
 public class UsersController {
 
-	@Path("users")
+	@GET
 	public String getUsers() {
 		return "users.html";
 	}
