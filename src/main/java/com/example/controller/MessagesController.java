@@ -3,7 +3,6 @@ package com.example.controller;
 import java.sql.SQLException;
 import com.example.model.MessageDAO;
 
-import jakarta.annotation.security.PermitAll;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.inject.Inject;
@@ -15,13 +14,12 @@ import jakarta.ws.rs.FormParam;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
-import jakarta.ws.rs.QueryParam;
 
 @Controller
 @RequestScoped
-@PermitAll
-@Path("/")
-public class MessageController {
+@RolesAllowed("USER")
+@Path("messages")
+public class MessagesController {
 	@Inject
 	private Models models;
 	@Inject
@@ -30,16 +28,25 @@ public class MessageController {
 	private HttpServletRequest req;
 
 	@GET
-	public String home() {
-		models.put("appName", "Message Board");
-		return "index.html";
+	public String getMessages() throws SQLException {
+		models.put("userName", req.getRemoteUser());
+		models.put("isAdmin", req.isUserInRole("ADMIN"));
+		models.put("messages", messagesDAO.getAll());
+		return "messages.html";
 	}
 
-	@GET
-	@Path("login")
-	public String login(@QueryParam("error") final String error) {
-		models.put("error", error);
-		return "login.html";
+	@POST
+	public String postMessages(@FormParam("message") String mes) throws SQLException {
+		messagesDAO.create(req.getRemoteUser(), mes);
+		return "redirect:/messages/";
+	}
+
+	@POST
+	@RolesAllowed("ADMIN")
+	@Path("clear")
+	public String clearMessages() throws SQLException {
+		messagesDAO.deleteAll();
+		return "redirect:/messages/";
 	}
 
 	@GET
@@ -54,36 +61,4 @@ public class MessageController {
 		return "redirect:/";
 	}
 
-	@GET
-	@RolesAllowed("USER")
-	@Path("messages")
-	public String getMessages() throws SQLException {
-		models.put("userName", req.getRemoteUser());
-		models.put("isAdmin", req.isUserInRole("ADMIN"));
-		models.put("messages", messagesDAO.getAll());
-		return "messages.html";
-	}
-
-	@POST
-	@RolesAllowed("USER")	
-	@Path("messages")
-	public String postMessages(@FormParam("message") String mes) throws SQLException {
-		messagesDAO.create(req.getRemoteUser(), mes);
-		return "redirect:messages";
-	}
-
-	@GET
-	@RolesAllowed("ADMIN")
-	@Path("users")
-	public String getUsers() {
-		return "users.html";
-	}
-
-	@POST
-	@RolesAllowed("ADMIN")
-	@Path("clear")
-	public String clearMessages() throws SQLException {
-		messagesDAO.deleteAll();
-		return "redirect:messages";
-	}
 }

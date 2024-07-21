@@ -5,16 +5,15 @@ In this part, we will create a message board with authorization using Jakarta MV
 
 This app will have the following features:
 
-
 Newly added features:
 - Authorization
 - CSRF protection
 
 Previous features:
 - Routing
+- GET/POST
+- Handling static files
+- Redirect
+- Authentication
 - Login/Logout
 - Database
-- Post messages
-- Redirect
-- Handling static files
-
