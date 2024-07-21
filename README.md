@@ -14,6 +14,7 @@ Previous features:
 - Routing
 - Login/Logout
 - Database
-- Post message
+- Post messages
 - Redirect
+- Handling static files
 
