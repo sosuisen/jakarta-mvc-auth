@@ -10,7 +10,7 @@ import jakarta.ws.rs.QueryParam;
 
 @Controller
 @RequestScoped
-@Path("")
+@Path("/")
 public class PublicAreaController {
 	@Inject
 	private Models models;

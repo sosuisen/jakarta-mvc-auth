@@ -8,8 +8,8 @@ import jakarta.ws.rs.Path;
 
 @Controller
 @RequestScoped
-@RolesAllowed("ADMIN")
 @Path("users")
+@RolesAllowed("ADMIN")
 public class UsersController {
 
 	@GET

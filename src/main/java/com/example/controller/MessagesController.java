@@ -10,6 +10,7 @@ import jakarta.mvc.Controller;
 import jakarta.mvc.Models;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.FormParam;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
@@ -17,8 +18,8 @@ import jakarta.ws.rs.Path;
 
 @Controller
 @RequestScoped
+@Path("/")
 @RolesAllowed("USER")
-@Path("messages")
 public class MessagesController {
 	@Inject
 	private Models models;
@@ -28,6 +29,7 @@ public class MessagesController {
 	private HttpServletRequest req;
 
 	@GET
+	@Path("messages")	
 	public String getMessages() throws SQLException {
 		models.put("userName", req.getRemoteUser());
 		models.put("isAdmin", req.isUserInRole("ADMIN"));
@@ -36,17 +38,18 @@ public class MessagesController {
 	}
 
 	@POST
+	@Path("messages")
 	public String postMessages(@FormParam("message") String mes) throws SQLException {
 		messagesDAO.create(req.getRemoteUser(), mes);
-		return "redirect:/messages/";
+		return "redirect:messages";
 	}
 
-	@POST
+	@DELETE
+	@Path("messages")
 	@RolesAllowed("ADMIN")
-	@Path("clear")
-	public String clearMessages() throws SQLException {
+	public String deleteMessages() throws SQLException {
 		messagesDAO.deleteAll();
-		return "redirect:/messages/";
+		return "redirect:messages";
 	}
 
 	@GET
@@ -58,7 +61,6 @@ public class MessagesController {
 		} catch (ServletException e) {
 			e.printStackTrace();
 		}
-		return "redirect:/";
+		return "redirect:";
 	}
-
 }

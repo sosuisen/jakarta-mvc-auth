@@ -33,7 +33,7 @@ public class ForbiddenExceptionMapper implements ExceptionMapper<ForbiddenExcept
 		} else {
 			// POST request to the forbidden URL is not interrupted by the login screen.
 			// So, redirect to the main screen instead.
-			return Response.seeOther(URI.create(req.getContextPath() + "/messages/?error=forbidden")).build();
+			return Response.seeOther(URI.create(req.getContextPath() + "/mvc/messages?error=forbidden")).build();
 		}
 	}
 }
