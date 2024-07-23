@@ -9,6 +9,7 @@ Newly added features:
 - Authorization
 - Error Handling 
 - CSRF protection
+- Handling of HTTP DELETE requests
 
 Previous features:
 - Routing
