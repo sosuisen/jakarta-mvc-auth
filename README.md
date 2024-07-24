@@ -21,3 +21,8 @@ Previous features:
 - Authentication
 - Login/Logout
 - Database
+
+---
+Hidekazu Kubota
+
+MIT License
