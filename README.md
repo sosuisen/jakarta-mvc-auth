@@ -25,4 +25,4 @@ Previous features:
 ---
 Hidekazu Kubota
 
-MIT License
+This Java source code is licensed under the MIT License.
